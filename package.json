@@ -1,12 +1,12 @@
 {
-  "name": "graph",
-  "widgetName": "Graph",
+  "name": "pulltorefresh",
+  "widgetName": "PullToRefresh",
   "version": "1.0.2",
   "description": "My widget description",
   "packagePath": "mendixcn",
   "author": "wengao.liu@siemens.com",
   "dependencies": {
-    "ahooks": "^2.10.14",
+    "ahooks": "^3.3.10",
     "classnames": "^2.2.6"
   },
   "scripts": {
