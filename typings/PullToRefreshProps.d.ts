@@ -3,18 +3,19 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix UI Content Team
  */
-import { CSSProperties } from "react";
-import { EditableValue, ListValue, ListAttributeValue } from "mendix";
+import { ComponentType, CSSProperties } from "react";
+import { ActionValue, EditableValue, ListValue, ListWidgetValue } from "mendix";
+import { Big } from "big.js";
 
 export interface PullToRefreshContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    sampleText: string;
-    attribute?: EditableValue<string>;
+    tpl: ListWidgetValue;
     datasource: ListValue;
-    att2?: ListAttributeValue<string>;
+    nextId: EditableValue<Big>;
+    actionRefresh?: ActionValue;
 }
 
 export interface PullToRefreshPreviewProps {
@@ -22,8 +23,8 @@ export interface PullToRefreshPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
-    sampleText: string;
-    attribute: string;
+    tpl: { widgetCount: number; renderer: ComponentType<{ caption?: string }> };
     datasource: {} | { type: string } | null;
-    att2: string;
+    nextId: string;
+    actionRefresh: {} | null;
 }

@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="mendixcn.pulltorefresh.PullToRefresh" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+<widget id="mendixcn.pulltorefresh.PullToRefresh" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>PullToRefresh</name>
     <description>My widget description</description>
     <icon/>
     <properties>
         <propertyGroup caption="General">
-            <property key="sampleText" type="string" required="false">
-                <caption>Default value</caption>
-                <description>Sample text input</description>
-            </property>
-            <property key="attribute" type="attribute" required="false">
-                <caption>Attribute</caption>
-                <description/>
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
+            <property key="tpl" type="widgets" required="true" dataSource="datasource">
+                <caption>模板</caption>
+                <description></description>
             </property>
             <property key="datasource" type="datasource" required="true" isList="true">
-                <caption>Data Source</caption>
+                <caption>数据源</caption>
                 <description/>
             </property>
-            <property key="att2" type="attribute" required="false" dataSource="datasource">
-                <caption>att2</caption>
-                <description/>
+        </propertyGroup>
+        <propertyGroup caption="PullToRefresh">
+            <property key="nextId" type="attribute" required="true" isPath="no">
+                <caption>nextId</caption>
+                <description></description>
                 <attributeTypes>
-                    <attributeType name="String"/>
+                    <attributeType name="Integer" />
                 </attributeTypes>
+            </property>
+            <property key="actionRefresh" type="action" required="true">
+                <caption>加载</caption>
+                <description></description>
             </property>
         </propertyGroup>
     </properties>
