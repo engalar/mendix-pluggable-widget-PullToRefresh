@@ -1,43 +1,42 @@
-import { createElement, useRef } from "react";
+import { createElement, useCallback, useEffect, useRef } from "react";
 import { PullToRefreshContainerProps } from "../typings/PullToRefreshProps";
 import { useInfiniteScroll } from 'ahooks';
+import { ValueStatus, ObjectItem } from 'mendix';
 
 interface Result {
-    list: string[];
+    list: ObjectItem[];
     nextId: string | undefined;
 }
 
-const resultData = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
-
-function getLoadMoreList(nextId: string | undefined, limit: number): Promise<Result> {
-    let start = 0;
-    if (nextId) {
-        start = resultData.findIndex((i) => i === nextId);
-    }
-    const end = start + limit;
-    const list = resultData.slice(start, end);
-    const nId = resultData.length >= end ? resultData[end] : undefined;
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                list,
-                nextId: nId,
-            });
-        }, 1000);
-    });
-}
 export default function (props: PullToRefreshContainerProps) {
-    console.log(props);
+    const getLoadMoreList = useCallback(
+        (val) => {
+            if (props.datasource.status === ValueStatus.Available) {
+                props.actionRefresh?.execute();
+            }
+            return Promise.resolve(val);
+        },
+        [props.datasource],
+    );
 
     const ref = useRef<HTMLDivElement>(null);
 
-    const { data, loading, loadMore, loadingMore, noMore } = useInfiniteScroll(
-        (d) => getLoadMoreList(d?.nextId, 4),
+    const { data, loading, loadMore, loadingMore, noMore, mutate } = useInfiniteScroll<Result>(
+        getLoadMoreList,
         {
             target: ref,
+            manual: true,
             isNoMore: (d) => d?.nextId === undefined,
         },
     );
+    useEffect(() => {
+        if (props.datasource.status === ValueStatus.Available) {
+            mutate({ list: props.datasource.items!, nextId: '0' });
+        }
+
+        return () => {
+        }
+    }, [props.datasource]);
 
     return (
         <div ref={ref} style={{ height: 150, overflow: 'auto', border: '1px solid', padding: 12 }}>
@@ -46,8 +45,8 @@ export default function (props: PullToRefreshContainerProps) {
             ) : (
                 <div>
                     {data?.list?.map((item) => (
-                        <div key={item} style={{ padding: 12, border: '1px solid #f5f5f5' }}>
-                            item-{item}
+                        <div key={item.id} style={{ padding: 12, border: '1px solid #f5f5f5' }}>
+                            {props.tpl.get(item)}
                         </div>
                     ))}
                 </div>
