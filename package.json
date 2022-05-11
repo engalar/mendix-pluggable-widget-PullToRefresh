@@ -1,7 +1,7 @@
 {
   "name": "pulltorefresh",
   "widgetName": "PullToRefresh",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "My widget description",
   "packagePath": "mendixcn",
   "author": "wengao.liu@siemens.com",
