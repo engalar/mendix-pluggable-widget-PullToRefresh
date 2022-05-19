@@ -55,11 +55,11 @@ export default function (props: PullToRefreshContainerProps) {
             <div style={{ marginTop: 8 }}>
                 {!noMore && (
                     <button type="button" onClick={loadMore} disabled={loadingMore}>
-                        {loadingMore ? 'Loading more...' : 'Click to load more'}
+                        {loadingMore ? '正在加载...' : '点击加载更多'}
                     </button>
                 )}
 
-                {noMore && <span>No more data</span>}
+                {noMore && <span>没有更多数据了</span>}
             </div>
         </div>
     );

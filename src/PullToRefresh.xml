@@ -18,7 +18,7 @@
         </propertyGroup>
         <propertyGroup caption="PullToRefresh">
             <property key="nextId" type="attribute" required="true" isPath="no">
-                <caption>nextId</caption>
+                <caption>指针</caption>
                 <description></description>
                 <attributeTypes>
                     <attributeType name="Integer" />
