@@ -5,7 +5,7 @@ import { ValueStatus, ObjectItem } from 'mendix';
 
 interface Result {
     list: ObjectItem[];
-    nextId: string | undefined;
+    nextId: number | undefined;
 }
 
 export default function (props: PullToRefreshContainerProps) {
@@ -26,17 +26,17 @@ export default function (props: PullToRefreshContainerProps) {
         {
             target: ref,
             manual: true,
-            isNoMore: (d) => d?.nextId === undefined,
+            isNoMore: (d) => d?.nextId === -1,
         },
     );
     useEffect(() => {
-        if (props.datasource.status === ValueStatus.Available) {
-            mutate({ list: props.datasource.items!, nextId: '0' });
+        if (props.datasource.status === ValueStatus.Available && props.nextId.status === ValueStatus.Available) {
+            mutate({ list: props.datasource.items!, nextId: props.nextId.value?.toNumber() });
         }
 
         return () => {
         }
-    }, [props.datasource]);
+    }, [props.datasource, props.nextId]);
 
     return (
         <div ref={ref} style={{ height: 150, overflow: 'auto', border: '1px solid', padding: 12 }}>

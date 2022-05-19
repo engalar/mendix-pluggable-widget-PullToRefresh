@@ -48,7 +48,7 @@ jobs:
                   repo_token: "${{ secrets.GITHUB_TOKEN }}"
                   automatic_release_tag: "${{ steps.package.outputs.name }}-v${{ steps.package.outputs.version }}"
                   prerelease: false
-                  title: "${{ steps.package.outputs.widgetName }}"
+                  title: "UI组件 和 对应的测试项目"
                   files: |
                       dist/**/*.mpk
                       dist/demo.zip
